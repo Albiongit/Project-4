@@ -1,0 +1,77 @@
+#include<iostream>
+#include <string>
+using namespace std;
+#define Initial_Capacity 2
+template <typename T>
+class Stack {
+private:
+	int capacity;
+	int n;
+	T* data;
+public:
+	Stack() {
+		this->capacity = Initial_Capacity;
+		this->data = new T[Initial_Capacity];
+	n=0;
+	}
+	void push(T x) {
+		if (n == capacity) {
+			int newCapacity = 2 * capacity;
+			T* newData = new T[newCapacity];
+			for (int i = 0; i < this->n; i++) {
+				newData[i] = this->data[i];
+				}
+			delete[] this->data;
+			this->data = newData;
+			this->capacity = newCapacity;
+		}
+		this->data[n] = x;
+		n++;
+	}
+	T pop() {
+		if (n == 0) {
+			throw "Nuk ka elemente ne Stack.";
+		}
+		T Elementi = this->data[n - 1];
+		n--;
+		return Elementi;
+	}
+	T peek() {
+		if (n == 0) {
+			throw "Nuk ka elemente ne Stack.";
+		}
+		return this->data[n - 1];
+			}
+	int size() {
+		return n;
+	}
+};
+
+
+int main() {
+
+	Stack<int> Stacku = Stack<int>();
+	Stacku.push(4);
+	cout << Stacku.peek() << endl;
+	Stacku.push(5);
+	cout << Stacku.peek() << endl;
+	Stacku.push(6);
+	cout << Stacku.peek() << endl;
+	Stacku.push(7);
+	cout << Stacku.peek() << endl;
+	Stacku.push(8);
+	cout << Stacku.peek() << endl;
+	Stacku.push(12);
+	cout << Stacku.peek() << endl;
+	Stacku.push(23);
+	cout << Stacku.peek() << endl;
+	Stacku.push(723);
+	cout << Stacku.peek() << endl;
+	Stacku.push(735);
+	cout << Stacku.peek() << endl;
+	cout << Stacku.pop() << endl;
+	cout << Stacku.size() << endl;
+
+
+	return 0;
+}
