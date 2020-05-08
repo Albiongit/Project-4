@@ -1,0 +1,98 @@
+#include <iostream>
+#include <string>
+using namespace std;
+struct Node {
+	int value;
+	Node* next;
+};
+Node* add_front(int value, Node* list) {
+	Node* head = list;
+		Node* n = new Node;
+		n->value = value;
+		n->next = list;
+		head = n;
+		if (list == NULL) {
+			list = n;
+			return n;
+		}
+		
+	
+		return head;
+}
+int head(Node* list) {
+	return list->value;
+}
+int size(Node* list) {
+	return list->next == NULL ? 0 : 1 + size(list->next);
+}
+int sum(Node* list) {
+	return list == NULL ? 0 : list->value + sum(list->next);
+}
+bool exists(int value, Node* list) {
+	if (list == NULL) {
+		return false;
+	}
+	return list->value == value ? true : exists(value, list->next);
+}
+void print(Node* list) {
+	if (list == NULL) {
+		
+	}
+	else {
+		cout << list->value;
+			if (list->next != NULL) {
+				cout<<", "; print(list->next);
+			}
+	}
+	
+}
+Node* copy(Node* list) {
+	Node* n = new Node;
+	n->next = NULL;
+
+	if (list != NULL) {
+		n->value = list->value;
+		n->next = list->next;
+
+		list = list->next;
+		copy(list);
+	}
+	return n;
+}
+void destroy(Node* list) {
+	if (list != NULL) {
+		delete list;
+		
+		destroy(list->next);
+	}
+	else {
+		delete list;
+	}
+}
+
+int main() {
+	
+	Node* A= new Node;
+	A = NULL;
+	Node* B = new Node();
+	B=add_front(5, A);
+	cout <<head(B)<< endl;
+	cout << size(B) << endl;
+	cout << sum(B) << endl;
+	Node* C = new Node();
+	C = add_front(6, B);
+	cout << head(C) << endl;
+	cout << size(C) << endl;
+	cout << sum(C) << endl;
+	cout << exists(2, C) << endl;
+	print(C);
+	cout << endl;
+	Node* D = new Node();
+	D = copy(C);
+	print(D);
+	destroy(A); 
+	destroy(B); 
+	destroy(C);
+	destroy(D);
+	return 0;
+}
